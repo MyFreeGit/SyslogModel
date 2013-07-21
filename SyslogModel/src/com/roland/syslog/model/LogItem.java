@@ -1,7 +1,5 @@
 package com.roland.syslog.model;
 import java.util.*;
-import java.util.regex.*;
-import java.text.*;
 
 import hirondelle.date4j.DateTime;
 
@@ -20,10 +18,7 @@ public class LogItem {
 		this.originalText = plainText;
 		fields = EnumSet.noneOf(Fields.class);
 
-		int pos = initTimeStamp();
-		pos = initSeverity();
-
-		initLogText(pos);
+		initBasicLogItems();
 		initIPALogItems();
 	}
 
@@ -55,16 +50,19 @@ public class LogItem {
     private EnumSet<Fields> fields;
     private String logText; //After all meaningful fields are chopped out, the pure text   
 
-    private int initTimeStamp(){
-		this.timeStamp = DateTimeHelper.getDataTime(this.originalText);
-		this.fields.add(Fields.TimeStamp);
-		return DateTimeHelper.getLastMatchedPosition();
-    }
-
-    private int initSeverity(){
-		this.severity = SeverityHelper.getSeverity(this.originalText);
-		this.fields.add(Fields.Severity);
-		return SeverityHelper.getLastMatchedPosition();
+    private boolean initBasicLogItems(){
+    	boolean result = BasicLogHelper.analyze(originalText);
+    	if(result){
+    		this.timeStamp = BasicLogHelper.getDataTime();
+    		this.fields.add(Fields.TimeStamp);
+    		
+    		this.severity = BasicLogHelper.getSeverity();
+    		this.fields.add(Fields.Severity);
+    		
+    		this.logText = BasicLogHelper.getLogText();
+    		this.fields.add(Fields.Text);
+    	}
+    	return result;
     }
     
     private boolean initIPALogItems(){
@@ -72,22 +70,12 @@ public class LogItem {
     	if(result){
     		this.ru = IPALogHelper.getRU();
     		this.fields.add(Fields.RU);
+    		
     		this.prb = IPALogHelper.getPRB();
     		this.fields.add(Fields.PRB);
+    		
     		this.logText = IPALogHelper.getLogText();
     	}
     	return result;
     }
- 
-    private void initLogText(int pos){
-		pos = trimSpace(pos);
-		logText = this.originalText.substring(pos);
-		this.fields.add(Fields.Text);
-    }
- 
-    private int trimSpace(int pos){
-		while(pos < originalText.length() && originalText.charAt(pos++) == ' ');
-		return --pos;
-	}
-
 }

@@ -3,6 +3,10 @@ package com.roland.syslog.model;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author DingLi
+ * IPALogHelper is used to get RU, PRB and LogText from one line of syslog. The analyze is based on regex
+ */
 public class IPALogHelper {
 	public final static String IPA_LOG_PATTERN = "(^[A-Za-z]+\\-[0-9]+)\\W*([A-Za-z]+)\\:\\W*(.*)";
 	public static boolean analyze(String text){

@@ -12,22 +12,6 @@ public class LogItemTest {
 	@BeforeClass
 	public static void testSetup() {
 	}
-
-    @Test
-    public void testDateTimeHelper(){
-    	assertEquals("01", DateTimeHelper.monthAbbrToNumber("Jan"));
-    	assertEquals("02", DateTimeHelper.monthAbbrToNumber("Feb"));
-    	assertEquals("03", DateTimeHelper.monthAbbrToNumber("Mar"));
-    	assertEquals("04", DateTimeHelper.monthAbbrToNumber("Apr"));
-    	assertEquals("05", DateTimeHelper.monthAbbrToNumber("May"));
-    	assertEquals("06", DateTimeHelper.monthAbbrToNumber("Jun"));
-    	assertEquals("07", DateTimeHelper.monthAbbrToNumber("Jul"));
-    	assertEquals("08", DateTimeHelper.monthAbbrToNumber("Aug"));
-    	assertEquals("09", DateTimeHelper.monthAbbrToNumber("Sep"));
-    	assertEquals("10", DateTimeHelper.monthAbbrToNumber("Oct"));
-    	assertEquals("11", DateTimeHelper.monthAbbrToNumber("Nov"));
-    	assertEquals("12", DateTimeHelper.monthAbbrToNumber("Dec"));
-    }
     
 	@Test
 	public void testLogItem() {
