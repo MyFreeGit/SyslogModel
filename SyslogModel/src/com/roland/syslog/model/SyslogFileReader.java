@@ -29,8 +29,4 @@ public class SyslogFileReader {
 		return allItems;
 	}
 	
-	public static void main(String args[]){
-		LogItem item = new LogItem("Sep  9 14:47:01.356376 notice CSCP-1 crond[11196]: (root) CMD (nice /opt/nokiasiemens/bin/timestamp.sh)");
-		System.out.println(item.getLogText());
-	}
 }
