@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * IPALogHelper is used to get RU, PRB and LogText from one line of syslog. The analyze is based on regex
  */
 public class IPALogHelper {
-	public final static String IPA_LOG_PATTERN = "(^[A-Za-z]+\\-[0-9]+)\\W*([A-Za-z]+)\\:\\W*(.*)";
+	public final static String IPA_LOG_PATTERN = "(^[A-Za-z]+\\-[0-9]+)\\s*(\\S+)\\:\\s*(.*)";
 	public static boolean analyze(String text){
 		matcher = ipaPattern.matcher(text);
 		return matcher.find();

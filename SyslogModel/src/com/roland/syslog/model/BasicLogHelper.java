@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class BasicLogHelper {
 	/*Syslog isn't contains year information, so all year information is set to 2012 for simplicity*/
 	public final static String defaultYear = "2012"; 
-    public final static String BASIC_LOG_PATTERN = "([a-zA-Z]+)\\s*([0-9]+)\\s*([0-9]+:[0-9]+:[0-9]+\\.[0-9]+)\\W*((?i)emerg|alert|crit|err|warn|notice|info|debug)\\W*(.*)";
+    public final static String BASIC_LOG_PATTERN = "([a-zA-Z]+)\\s*([0-9]+)\\s*([0-9]+:[0-9]+:[0-9]+\\.[0-9]+)\\s*((?i)emerg|alert|crit|err|warn|notice|info|debug)\\s*(.*)";
     
 	public static boolean analyze(String text){
 		matcher = pattern.matcher(text);

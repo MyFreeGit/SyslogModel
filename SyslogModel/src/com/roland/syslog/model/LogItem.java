@@ -11,12 +11,15 @@ public class LogItem {
 	/**
 	 * Used to indicates the log items contains how man fields.
 	 */
-	public enum Fields{
+	public enum Field{
 		TimeStamp, Severity, RU, PRB, Text
 	}
 	public LogItem(String plainText){
 		this.originalText = plainText;
-		fields = EnumSet.noneOf(Fields.class);
+		fields = EnumSet.noneOf(Field.class);
+
+		this.logText = plainText;
+		this.fields.add(Field.Text);
 
 		initBasicLogItems();
 		initIPALogItems();
@@ -42,25 +45,32 @@ public class LogItem {
 		return prb;
 	}
 	
+	public boolean containField(Field field){
+		return fields.contains(field);
+	}
+		
+	@Override public String toString(){
+		return originalText;
+	}
+	
     private String originalText;
     private DateTime timeStamp;
     private Severity severity;
     private String ru;
     private String prb;
-    private EnumSet<Fields> fields;
+    private EnumSet<Field> fields;
     private String logText; //After all meaningful fields are chopped out, the pure text   
 
     private boolean initBasicLogItems(){
     	boolean result = BasicLogHelper.analyze(originalText);
     	if(result){
     		this.timeStamp = BasicLogHelper.getDataTime();
-    		this.fields.add(Fields.TimeStamp);
+    		this.fields.add(Field.TimeStamp);
     		
     		this.severity = BasicLogHelper.getSeverity();
-    		this.fields.add(Fields.Severity);
+    		this.fields.add(Field.Severity);
     		
     		this.logText = BasicLogHelper.getLogText();
-    		this.fields.add(Fields.Text);
     	}
     	return result;
     }
@@ -69,10 +79,10 @@ public class LogItem {
     	boolean result = IPALogHelper.analyze(logText);
     	if(result){
     		this.ru = IPALogHelper.getRU();
-    		this.fields.add(Fields.RU);
+    		this.fields.add(Field.RU);
     		
     		this.prb = IPALogHelper.getPRB();
-    		this.fields.add(Fields.PRB);
+    		this.fields.add(Field.PRB);
     		
     		this.logText = IPALogHelper.getLogText();
     	}
